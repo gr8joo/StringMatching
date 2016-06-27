@@ -1,0 +1,14 @@
+2 3 4
+2 3 3
+abcd
+efgh
+ijkl
+mnop
+qrst
+uvwx
+zzz
+zab
+zef
+zzz
+zmn
+zqr

@@ -1,4 +1,4 @@
-#include "../PositionTree/PositionTree.h"
+#include "../PositionTree.h"
 
 int* sizer(int Tn, int Tm, int Pn, int Pm, int x, int y, int totalHit);
 
