@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #define numLetter 256
-#define somesize 200
+#define somesize 200000
 // #define nonRegularLetter '$';
 class Vertex{
 
@@ -18,7 +18,7 @@ public:
 	int index;
 
 	Vertex *SuffixLink;
-	Vertex();
+	//Vertex();
 	Vertex(int a, int b);
 	Vertex(int a, int *b);
 	

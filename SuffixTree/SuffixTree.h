@@ -19,7 +19,7 @@ public:
 // const static char nonRegularLetter = '$';
 	const static char Dollar = '$';
 
-	SuffixTree();
+//	SuffixTree();
 	
 	SuffixTree(char *y);
 	
@@ -31,11 +31,13 @@ public:
 
 	char nextLetter(int i);
 	
-	int diff(Vertex *v);
-
 	Vertex* pickV();
 	
 	Vertex* pickV(int index);
+
+	int diff(Vertex *v);
 	
 	void setIndex(Vertex *V, int edgeLen, int Len); 
+
+	int howManyL;
 };

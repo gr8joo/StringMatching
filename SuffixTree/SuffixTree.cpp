@@ -3,7 +3,7 @@
 
 //const char SuffixTree::nonRegularLetter = '$';
 
-SuffixTree::SuffixTree(){}
+//SuffixTree::SuffixTree(){}
 
 SuffixTree::SuffixTree(char *y)//:example(1,2)
 {
@@ -12,13 +12,16 @@ SuffixTree::SuffixTree(char *y)//:example(1,2)
 	x = (char*)calloc(strlen(y)+1, sizeof(char));
 	memcpy(x,y,strlen(y));
 
+	//  Replacing '\n' to '$'
 	x[strlen(x)-1] = Dollar;
 	
 	std::cout << strlen(x) << std::endl;
-	std::cout << x << std::endl;
+	//std::cout << x << std::endl;
 	
+	howManyL = 0;
 	buildTree();
-		setIndex(root, 0, strlen(x));
+	setIndex(root, 0, strlen(x));
+	printf("# of Leaves: %d\n", howManyL);
 }
 
 void SuffixTree::buildTree()
@@ -37,8 +40,12 @@ void SuffixTree::buildTree()
 
 	leftSuffix = 0;
 	for(i=0;i<strlen(x);i++)
+	{
+		//printf("Evolve %d: ", i);
 		evolveTree(i);
-	
+		//printf("\n\tactL: %d\tactE: %d\n\tleft Suffix: %d\t global end:%d\n\n", actL, actE, leftSuffix, GlobalEnd);
+		//printf("\n");
+	}
 	//printf("%d\n", leftSuffix);
 	
 
@@ -57,8 +64,10 @@ void SuffixTree::evolveTree(int i)
 	// If active length is equal to zero, always start from root
 		if(actL == 0)
 		{
+			//printf("Z");
 			if(pickV(i) != NULL)
 			{
+				//printf("-a ");
 				actE = pickV(i)->start;
 				actL++;
 				break;
@@ -66,6 +75,7 @@ void SuffixTree::evolveTree(int i)
 		
 			else
 			{
+				//printf("-b ");
 				root -> sonList[ x[i] ] = new Vertex(i, &GlobalEnd);
 				leftSuffix--;
 			}
@@ -74,18 +84,26 @@ void SuffixTree::evolveTree(int i)
 		else
 		{
 			char c = nextLetter(i);
+
 			if(c == NULL)
 			{
+				//printf("E");
 				Vertex *V = pickV();
 				V->sonList[ x[i] ] = new Vertex(i, &GlobalEnd);
-				if( lastInternalV != NULL )
+				if( lastInternalV != NULL ){
+					//printf(".5");
 					lastInternalV -> SuffixLink = V;
+				}
 
 				lastInternalV = V;
 				if( actV != root )
+				{
+					//printf("-a ");
 					actV = actV -> SuffixLink;
+				}
 				else
 				{
+					//printf("-b ");
 					actE++;
 					actL--;
 				}
@@ -93,13 +111,19 @@ void SuffixTree::evolveTree(int i)
 			}
 			else if(c == x[i])
 			{
+				//printf("1");
 				if( lastInternalV != NULL )
+				{
+					//printf(".5");
 					lastInternalV -> SuffixLink = pickV();
+				}
 				cursor(i);
+				//printf(" ");
 				break;
 			}
 			else
 			{
+				//printf("2");
 				Vertex *V = pickV();
 				int prevStart = V->start;
 				V->start = V->start + actL;
@@ -114,15 +138,21 @@ void SuffixTree::evolveTree(int i)
 				actV -> sonList[ x[ newInternalV->start ] ] = newInternalV;
 
 				if( lastInternalV != NULL)
+				{
+					//printf(".5");
 					lastInternalV -> SuffixLink = newInternalV;
-
+				}
 				lastInternalV = newInternalV;
 				newInternalV -> SuffixLink = root;
 
 				if( actV != root )
+				{
 					actV = actV -> SuffixLink;
+					//printf("-a ");
+				}
 				else
 				{
+					//printf("-b ");
 					actE++;
 					actL--;
 				}
@@ -149,16 +179,24 @@ void SuffixTree::cursor(int index)
 char SuffixTree::nextLetter(int i)
 {
 	Vertex *V = pickV();
-	
+	/*
+	printf("diff(V) = %d", diff(V));
+	if(V->end == -2)
+		printf("(Global) ");
+	else
+		printf("(local) ");
+	*/	
 	if( diff(V) >= actL )
 		return x[ actV->sonList[ x[actE] ]->start + actL ];
 
 
-	if( diff(V)+1 == actL )
+	if( diff(V)+1 == actL ){
 		if( V->sonList[ x[i] ] != NULL)
 			return x[i];
+	}
 	else
 	{
+		//printf("(recur) ");
 		actV = V;
 		actL = actL - diff(V) -1;
 		actE = actE + diff(V) +1;
@@ -195,14 +233,18 @@ void SuffixTree::setIndex(Vertex *V, int edgeLen, int Len)
 	edgeLen += diff(V) + 1;
 	if(V -> index != -1)
 	{
+		howManyL++;
 		V->index = Len - edgeLen;
-		printf("%d\n", V->index);
+		//printf("%d\n", V->index);
 		return;
 	}
 	for(int i=0;i<numLetter;i++)
 	{
 		if(V -> sonList[i] != NULL)
+		{
+			//printf("%c ", i);
 			setIndex(V -> sonList[i], edgeLen, Len);
+		}
 	}
 }
 int main()
