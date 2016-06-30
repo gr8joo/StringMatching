@@ -20,7 +20,7 @@ SuffixTree::SuffixTree(char *y)//:example(1,2)
 	
 	howManyL = 0;
 	buildTree();
-	setIndex(root, 0, strlen(x));
+	setPosition(root, 0, strlen(x));
 	printf("# of Leaves: %d\n", howManyL);
 }
 
@@ -29,7 +29,7 @@ void SuffixTree::buildTree()
 	int i;
 
 	root = new Vertex(1, 0);
-	root -> index = -1;
+	root -> position = -1;
 
 //Active Point Setting	
 	actV = root;
@@ -134,7 +134,7 @@ void SuffixTree::evolveTree(int i)
 
 				newInternalV -> sonList[ x[ newInternalV->start + actL] ] = V;
 				newInternalV -> sonList[ x[i] ] = newLeafV;
-				newInternalV -> index = -1;
+				newInternalV -> position = -1;
 				actV -> sonList[ x[ newInternalV->start ] ] = newInternalV;
 
 				if( lastInternalV != NULL)
@@ -162,7 +162,7 @@ void SuffixTree::evolveTree(int i)
 	}
 }
 
-void SuffixTree::cursor(int index)
+void SuffixTree::cursor(int i)
 {
 	Vertex *V = pickV();
 
@@ -170,7 +170,7 @@ void SuffixTree::cursor(int index)
 	{
 		actV = V;
 		actL = actL - diff(V);
-		actE = V->sonList[ x[index] ]->start;
+		actE = V->sonList[ x[i] ]->start;
 	}
 	else
 		actL++;
@@ -221,21 +221,21 @@ Vertex* SuffixTree::pickV()
 {
 	return actV -> sonList[ x[actE] ];
 }
-Vertex* SuffixTree::pickV(int index)
+Vertex* SuffixTree::pickV(int i)
 {
-	return actV -> sonList[ x[index] ];
+	return actV -> sonList[ x[i] ];
 }
-void SuffixTree::setIndex(Vertex *V, int edgeLen, int Len)
+void SuffixTree::setPosition(Vertex *V, int edgeLen, int Len)
 {
 	if( V == NULL )
 		return;
 
 	edgeLen += diff(V) + 1;
-	if(V -> index != -1)
+	if(V -> position != -1)
 	{
 		howManyL++;
-		V->index = Len - edgeLen;
-		//printf("%d\n", V->index);
+		V->position = Len - edgeLen;
+		//printf("%d\n", V->position);
 		return;
 	}
 	for(int i=0;i<numLetter;i++)
@@ -243,7 +243,7 @@ void SuffixTree::setIndex(Vertex *V, int edgeLen, int Len)
 		if(V -> sonList[i] != NULL)
 		{
 			//printf("%c ", i);
-			setIndex(V -> sonList[i], edgeLen, Len);
+			setPosition(V -> sonList[i], edgeLen, Len);
 		}
 	}
 }

@@ -15,7 +15,7 @@ public:
 	int end;
 	int *gEnd;
 
-	int index;
+	int position;
 
 	Vertex *SuffixLink;
 	//Vertex();

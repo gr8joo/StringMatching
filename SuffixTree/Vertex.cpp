@@ -10,7 +10,7 @@ Vertex::Vertex(int a, int b)
 	
 	sonList = new Vertex *[numLetter];
 
-	index=0;
+	position=0;
 	//printf("s:%d e:%d\n", start, end);
 }
 
@@ -22,7 +22,7 @@ Vertex::Vertex(int a, int *b)
 
 	sonList = new Vertex *[numLetter];
 
-	index=0;
+	position=0;
 	//printf("s:%d e:%d\n", start, *gEnd);
 }
 

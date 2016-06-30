@@ -27,17 +27,17 @@ public:
 
 	void evolveTree(int i);
 
-	void cursor(int index);
+	void cursor(int i);
 
 	char nextLetter(int i);
 	
 	Vertex* pickV();
 	
-	Vertex* pickV(int index);
+	Vertex* pickV(int i);
 
 	int diff(Vertex *v);
 	
-	void setIndex(Vertex *V, int edgeLen, int Len); 
+	void setPosition(Vertex *V, int edgeLen, int Len); 
 
 	int howManyL;
 };
