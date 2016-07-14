@@ -43,8 +43,12 @@ int StringMatcher(item *Vertex, char *Pattern, int index)
 	{
 		//printf("One\n");
 		if(Pattern[index] == NULL)
+		{
 			printf("\t%d\n", Vertex->ifleaf);
-		return 1;
+			return 1;
+		}
+		else
+			return 0;
 	}
 	else if(Pattern[index] == NULL)
 	{
