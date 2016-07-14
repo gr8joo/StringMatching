@@ -6,7 +6,7 @@ StringMatcher::StringMatcher(SuffixTree *Tree, char *Pattern)
 	this -> pEnd = strlen(Pattern)-1;
 	this -> occurrence = 0;
 	findPattern(this->Tree -> root, 0);
-	printf("Total #of occurrence of Pattenr in Text: %d\n", occurrence);
+	printf("Total #of occurrences of Pattern in Text: %d\n", occurrence);
 }
 
 void StringMatcher::sweeper(Vertex *v)
