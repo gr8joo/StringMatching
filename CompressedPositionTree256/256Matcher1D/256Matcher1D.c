@@ -18,16 +18,15 @@ int Sweeper(item *Vertex)
 	}
 	return total;
 }
-int StringMatcher(item *Vertex, char *Pattern, int index)
+int StringMatcher(item *Vertex, char *x, char *Pattern, int index)
 {
-	int result = 0, i=0, len;
+	int result = 0, i=0, len, range=0;
 	int total=0;
 	int l;
 	static int z = 0;
-	char x, y;
+	char a, b;
 	item *temp;
 
-		
 	if(Vertex -> ifsub != 0)
 	{
 		len = strlen(Vertex -> substring);
@@ -42,17 +41,32 @@ int StringMatcher(item *Vertex, char *Pattern, int index)
 	if(Vertex -> ifleaf != 0)
 	{
 		//printf("One\n");
+		//printf("index: %d\n", index);
+		//printf("%d\n", Vertex -> ifleaf);
 		if(Pattern[index] == NULL)
 		{
 			printf("\t%d\n", Vertex->ifleaf);
 			return 1;
 		}
 		else
-			return 0;
+		{
+			if( strlen(x) - Vertex -> ifleaf < strlen(Pattern) - index)
+				return 0;
+			for( i=Vertex->ifleaf;i<strlen(x);i++)
+			{
+				if(x[i] != Pattern[index])
+					return 0;
+				index++;
+				if(Pattern[index] == NULL)
+					break;
+			}
+			printf("\t%d\n", Vertex->ifleaf);
+			return 1;
+		}
 	}
 	else if(Pattern[index] == NULL)
 	{
-		//printf("Sweeper\n");
+		printf("Sweeper\n");
 		total += Sweeper(Vertex);
 	}
 	
@@ -65,19 +79,19 @@ int StringMatcher(item *Vertex, char *Pattern, int index)
 					
 			for(i=0;i<len;i++)
 			{	
-				x = Vertex -> substring[i];
-				y = Pattern[index + i];
-				if( x >= 'A' && x <= 'Z')
-					x = x - 'A' + 'a';
-				if( y >= 'A' && y <= 'Z')
-					y = y - 'A' + 'a';
-				if(x != y)
+				a = Vertex -> substring[i];
+				b = Pattern[index + i];
+				//if( x >= 'A' && x <= 'Z')
+				//	x = x - 'A' + 'a';
+				//if( y >= 'A' && y <= 'Z')
+				//	y = y - 'A' + 'a';
+				if(a != b)
 					return 0;
 			}
 
 			if( Pattern[index+len] == NULL)
 			{
-				//printf("Sweeper\n");
+				printf("Sweeper\n");
 				total += Sweeper(Vertex);
 			}
 			
@@ -87,7 +101,7 @@ int StringMatcher(item *Vertex, char *Pattern, int index)
 				l = Pattern[index+len];
 				temp = Vertex -> T_son_list[l];
 				if(temp != NULL)
-					total += StringMatcher(temp, Pattern, index + len + 1);
+					total += StringMatcher(temp, x, Pattern, index + len + 1);
 			}
 		
 		}
@@ -98,7 +112,7 @@ int StringMatcher(item *Vertex, char *Pattern, int index)
 			temp = Vertex -> T_son_list[l];
 			
 			if(temp != NULL)
-				total+=StringMatcher(temp, Pattern, index + 1);
+				total+=StringMatcher(temp, x, Pattern, index + 1);
 		}
 
 	}

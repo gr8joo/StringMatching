@@ -38,7 +38,7 @@ void main()
 	printf("Number of Vertexes: %d\n", numVertex);
 	printf("Number of Vertexes Case2 Searched: %d\n", numCase2);
 	printf("Number of shifting in Case4: %d\n", shifting);
-	printf("Maximum Physical Depth: %d\n", maxDepth);
+	//printf("Maximum Physical Depth: %d\n", maxDepth);
 
 	fgets(Pattern, somesize, in);
 	if(Pattern[strlen(Pattern)-1] == '\n')
@@ -46,14 +46,16 @@ void main()
 		//printf("yes\n");
 		Pattern[strlen(Pattern)-1] = NULL;
 	}
+
 	//printf("%d\n", strncmp(x, Pattern, strlen(Pattern)));
+
 	//Pattern[strlen(Pattern)-1] = NULL;
 	//printf("%s\n", Pattern);
 
 	//for(i=strlen(Pattern);i<somesize;i++)
 	//	printf("%d", Pattern[i]);
 	//printf("%s\n", Pattern);
-	printf("Positions where pattern occurs in the text:\n");
-	occur = StringMatcher(root, Pattern, 0);
+	printf("\nPositions where pattern occurs in the text:\n");
+	occur = StringMatcher(root, x, Pattern, 0);
 	printf("# of occurrences = %d\n", occur);
 }
