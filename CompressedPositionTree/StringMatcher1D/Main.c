@@ -54,6 +54,6 @@ void main()
 	//	printf("%d", Pattern[i]);
 	//printf("%s\n", Pattern);
 	printf("Positions where pattern occurs in the text:\n");
-	occur = StringMatcher(root, Pattern, 0);
+	occur = StringMatcher(root, x, Pattern, 0);
 	printf("# of occurrences = %d\n", occur);
 }
