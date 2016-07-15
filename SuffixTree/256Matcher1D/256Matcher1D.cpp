@@ -52,7 +52,7 @@ void StringMatcher::findPattern(Vertex *v, int index)
 		{
 			if(Tree->x[i] != Pattern[index])
 			{
-				printf("index: %d\n", index);
+				//printf("index: %d\n", index);
 				return;
 			}
 			index++;
