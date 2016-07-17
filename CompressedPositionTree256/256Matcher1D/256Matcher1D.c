@@ -50,12 +50,19 @@ int StringMatcher(item *Vertex, char *x, char *Pattern, int index)
 		}
 		else
 		{
-			if( strlen(x) - Vertex -> ifleaf < strlen(Pattern) - index)
+			if( strlen(x) - Vertex -> ifleaf - index + 1 < strlen(Pattern) - index)
+			{
+				//printf("here\n");
 				return 0;
-			for( i=Vertex->ifleaf;i<strlen(x);i++)
+			}
+			for( i=Vertex->ifleaf+index-1;i<strlen(x);i++)
 			{
 				if(x[i] != Pattern[index])
+				{
+					printf("here2\n");
+					printf("%d\n", index);
 					return 0;
+				}
 				index++;
 				if(Pattern[index] == NULL)
 					break;
@@ -74,34 +81,39 @@ int StringMatcher(item *Vertex, char *x, char *Pattern, int index)
 	{
 		if(Vertex -> ifsub != 0)
 		{
-			if( strlen(&Pattern[index]) < len )
-				len = strlen(&Pattern[index]);
+			//if( strlen(&Pattern[index]) < len )
+			//	len = strlen(&Pattern[index]);
 					
 			for(i=0;i<len;i++)
 			{	
 				a = Vertex -> substring[i];
-				b = Pattern[index + i];
+				b = Pattern[index ];
 				//if( x >= 'A' && x <= 'Z')
 				//	x = x - 'A' + 'a';
 				//if( y >= 'A' && y <= 'Z')
 				//	y = y - 'A' + 'a';
-				if(a != b)
+				if( b == NULL)
+					break;
+				else if(a != b)
 					return 0;
+				else
+					index++;
+				
 			}
 
-			if( Pattern[index+len] == NULL)
+			if( Pattern[index] == NULL)
 			{
-				printf("Sweeper\n");
+				//printf("Sweeper\n");
 				total += Sweeper(Vertex);
 			}
 			
 			else
 			{
 				//printf("Two\n");
-				l = Pattern[index+len];
+				l = Pattern[index];
 				temp = Vertex -> T_son_list[l];
 				if(temp != NULL)
-					total += StringMatcher(temp, x, Pattern, index + len + 1);
+					total += StringMatcher(temp, x, Pattern, index+1);
 			}
 		
 		}
