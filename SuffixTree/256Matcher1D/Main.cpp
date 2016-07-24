@@ -29,6 +29,7 @@ int main()
 	fgets(Pattern, somesize, in);
 	if( Pattern[ strlen(Pattern)-1 ] == '\n' )
 		Pattern[ strlen(Pattern)-1 ] = NULL;
+	//printf("%s\n", Pattern);
 	StringMatcher *Match = new StringMatcher(&Tree, Pattern);
 	return 0;		
 }

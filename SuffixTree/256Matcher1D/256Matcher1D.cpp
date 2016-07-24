@@ -67,18 +67,26 @@ void StringMatcher::findPattern(Vertex *v, int index)
 	else
 	{
 		//printf("interior\n");
-		if(end < pEnd)
+		if(end - v->start < pEnd - index)
+		{
+			//printf("here\n");
 			range = end;
+		}
 		else
-			range = pEnd;
-
+		{
+			//printf("there\n");
+			range = v->start + pEnd - index;
+		}
+		//printf("%d %d\n", v->start, range);
 		for(i=v->start; i<=range; i++)
 		{
 			if(Tree->x[i] != Pattern[index])
 				return;
 			index++;
 		}
-		if(range < pEnd)
+		//printf("index: %d\n", index);
+		//printf("pEnd: %d\n", pEnd);
+		if(index <= pEnd)
 		{
 			if( v->sonList[ Pattern[index] ] != NULL )
 				findPattern( v->sonList[ Pattern[index] ], index );
