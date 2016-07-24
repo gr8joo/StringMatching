@@ -1,5 +1,5 @@
 #include "SuffixTree.h"
-
+#include <time.h>
 
 //const char SuffixTree::nonRegularLetter = '$';
 
@@ -15,7 +15,7 @@ SuffixTree::SuffixTree(char *y)//:example(1,2)
 	//  Replacing '\n' to '$'
 	x[strlen(x)-1] = Dollar;
 	
-	std::cout << strlen(x) << std::endl;
+	printf("Input length: %d\n", strlen(x));
 	//std::cout << x << std::endl;
 	
 	howManyL = 0;
@@ -247,17 +247,4 @@ void SuffixTree::setPosition(Vertex *V, int edgeLen, int Len)
 		}
 	}
 }
-int main()
-{
-	FILE *in = fopen("input.txt","rt");
-	char *x = (char*)calloc(somesize, sizeof(char));
-	//Pattern = (char*)calloc(somesize, sizeof(char));
-	
-	fgets(x, somesize, in);
-	//SuffixTree *Tree = new SuffixTree(x);
-	SuffixTree Tree(x);
-	
-	//Tree.x = (char*)calloc(20, sizeof(char));
-	//std::cout << "Hello World!\n" << std::endl;
-	return 0;		
-}
+
