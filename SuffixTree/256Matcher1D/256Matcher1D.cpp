@@ -7,7 +7,7 @@ StringMatcher::StringMatcher(SuffixTree *Tree, char *Pattern)
 	this -> occurrence = 0;
 	printf("\nPositions where Pattern appears in Text:\n");
 	findPattern(this->Tree -> root, 0);
-	printf("Total #of occurrences of Pattern in Text: %d\n", occurrence);
+	printf("\nTotal #of occurrences of Pattern in Text: %d\n", occurrence);
 }
 
 void StringMatcher::sweeper(Vertex *v)
@@ -18,7 +18,7 @@ void StringMatcher::sweeper(Vertex *v)
 	else if( v -> position != -1)
 	{
 		occurrence++;
-		printf("%d\n", v->position);
+		printf("\t%d\n", v->position);
 		return;
 	}
 	else
@@ -60,7 +60,7 @@ void StringMatcher::findPattern(Vertex *v, int index)
 				break;
 		}
 		occurrence++;
-		printf("%d\n", v->position);
+		printf("\t%d\n", v->position);
 	}
 
 	// Current vertex is an interior vertex
