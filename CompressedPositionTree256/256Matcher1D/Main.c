@@ -3,7 +3,7 @@
 
 void main()
 {
-	FILE *in = fopen("input.txt","rt");
+	FILE *in = fopen("../../DataGenerator/input.txt","rt");
 	FILE *out = fopen("out1.txt", "wt");
 	item *root;
 	char *x, *Pattern;// = "aaaaaaabbbbbbbaaaaaaabbbbbbbaaaaaaa";	//"baaaaaabbbaaabbb"; 	"abbabbabb";	//"datastructuresandabstractionswithjava";//"aaabbbaaacccaaabbbaaa";
@@ -12,6 +12,7 @@ void main()
 	int i,occur=0;
 // start counting time
 	time_start = (double)clock()/CLOCKS_PER_SEC;
+
 
 // Generate a Compressed Position Tree
 	x = (char*)calloc(somesize, sizeof(char));
@@ -23,7 +24,7 @@ void main()
 	//printf("Time elapsed: %f\n", ((double)clock() - start) / CLOCKS_PER_SEC);
 	time_stop = (double)clock()/CLOCKS_PER_SEC;
 	time_total = time_stop - time_start;
-	printf("\nThe end of Construction of Compressed Position Tree: spent %lf sec \n", time_total);
+	//printf("\nThe end of Construction of Compressed Position Tree: spent %lf sec \n", time_total);
 /*
 	for(i = end; i>=1; i--)
 	{
@@ -43,7 +44,8 @@ void main()
 	fgets(Pattern, somesize, in);
 	if(Pattern[strlen(Pattern)-1] == '\n')
 	{
-		//printf("yes\n");
+		//printf("%s\n", Pattern);
+		printf("yes\n");
 		Pattern[strlen(Pattern)-1] = NULL;
 	}
 
@@ -58,4 +60,6 @@ void main()
 	printf("\nPositions where pattern occurs in the text:\n");
 	occur = StringMatcher(root, x, Pattern, 0);
 	printf("# of occurrences = %d\n", occur);
+
+	printf("\nThe end of Construction of Compressed Position Tree: spent %lf sec \n", time_total);
 }

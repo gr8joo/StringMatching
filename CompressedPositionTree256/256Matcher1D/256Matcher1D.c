@@ -26,7 +26,7 @@ int StringMatcher(item *Vertex, char *x, char *Pattern, int index)
 	static int z = 0;
 	char a, b;
 	item *temp;
-
+	//printf("%d\n", index);
 	if(Vertex -> ifsub != 0)
 	{
 		len = strlen(Vertex -> substring);
@@ -59,8 +59,8 @@ int StringMatcher(item *Vertex, char *x, char *Pattern, int index)
 			{
 				if(x[i] != Pattern[index])
 				{
-					printf("here2\n");
-					printf("%d\n", index);
+					//printf("here2\n");
+					//printf("%d\n", index);
 					return 0;
 				}
 				index++;
